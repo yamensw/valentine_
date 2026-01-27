@@ -757,3 +757,35 @@ body {
     transition: none;
   }
 }
+/* =========================
+   FIX: Page starts "down below"
+   ========================= */
+
+/* 1) Remove any accidental top gap on the first section/hero */
+body { margin: 0; padding: 0; }
+
+/* If your hero is the first element, reduce top padding so it doesn't look pushed down */
+.hero { padding-top: 18px; } /* was 46px */
+
+/* 2) Sticky header sometimes creates a perceived "gap". This makes anchors/scroll align correctly */
+:root { scroll-padding-top: 80px; } /* adjust to your topbar height */
+
+/* 3) Ensure fixed overlays NEVER affect layout or intercept scroll */
+.hearts,
+.cupid-arrow,
+.background-overlay,
+.baklawa-particles,
+.scroll-progress,
+body::before {
+  top: 0;
+  left: 0;
+}
+
+/* 4) Your hearts overlay has z-index 1000 (above everything) — keep it behind UI */
+.hearts { z-index: 5; }          /* was 1000 */
+.topbar { z-index: 50; }         /* stays above hearts */
+.lightbox { z-index: 2000; }     /* stays above everything */
+
+/* 5) Make sure no container is being pushed by unexpected default margins */
+.container { margin-top: 0; }
+.section:first-of-type { padding-top: 36px; } /* keeps breathing room without huge gap */
