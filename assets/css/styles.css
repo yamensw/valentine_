@@ -14,116 +14,28 @@
 }
 
 *{box-sizing:border-box}
-html,body{height:100%; margin:0; padding:0}
-
-/* SEAMLESS CONTINUOUS ANIMATED BACKGROUND */
-body {
+html,body{height:100%}
+body{
+  margin:0;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-  color: var(--ink);
-  position: relative;
-  overflow-x: hidden;
-  background-color: var(--bg0);
-}
-
-/* Animated gradient overlay - ONE continuous layer */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  
-  /* Single continuous gradient */
-  background: 
-    /* Main gradient flow */
-    radial-gradient(
-      120% 120% at 50% 50%,
-      rgba(255, 240, 220, 0.8) 0%,
-      rgba(255, 230, 200, 0.6) 20%,
-      rgba(244, 231, 211, 0.4) 40%,
-      rgba(240, 220, 190, 0.2) 60%,
-      transparent 100%
-    ),
-    
-    /* Golden warmth overlay */
-    radial-gradient(
-      80% 80% at 80% 20%,
-      rgba(217, 179, 94, 0.15) 0%,
-      rgba(217, 179, 94, 0.08) 30%,
-      transparent 70%
-    ),
-    
-    /* Pink warmth overlay */
-    radial-gradient(
-      70% 70% at 20% 80%,
-      rgba(255, 77, 141, 0.12) 0%,
-      rgba(255, 134, 182, 0.06) 40%,
-      transparent 80%
-    ),
-    
-    /* Base continuous gradient */
-    linear-gradient(
-      135deg,
-      rgba(251, 246, 238, 1) 0%,
-      rgba(248, 240, 228, 1) 25%,
-      rgba(244, 235, 218, 1) 50%,
-      rgba(242, 232, 208, 1) 75%,
-      rgba(244, 231, 211, 1) 100%
-    );
-  
-  /* Animation for subtle movement */
-  animation: gentleDrift 30s ease-in-out infinite alternate;
-}
-
-/* Subtle movement for the background */
-@keyframes gentleDrift {
-  0% {
-    background-position: 0% 0%, 0% 0%, 0% 0%, 0% 0%;
-    background-size: 120% 120%, 80% 80%, 70% 70%, auto;
-  }
-  100% {
-    background-position: 2% 2%, 1% 1%, 3% 3%, 0% 0%;
-    background-size: 125% 125%, 85% 85%, 75% 75%, auto;
-  }
-}
-
-/* Particle overlay for additional texture */
-.background-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  opacity: 0.4;
-  background: 
-    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 50%),
-    radial-gradient(circle at 70% 70%, rgba(217, 179, 94, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 20% 80%, rgba(255, 77, 141, 0.1) 0%, transparent 50%);
-  mix-blend-mode: overlay;
-  animation: particleFlow 40s linear infinite;
-}
-
-@keyframes particleFlow {
-  0% {
-    transform: translate(0, 0);
-  }
-  25% {
-    transform: translate(-10px, -5px);
-  }
-  50% {
-    transform: translate(-5px, -10px);
-  }
-  75% {
-    transform: translate(-15px, -5px);
-  }
-  100% {
-    transform: translate(0, 0);
-  }
+  color:var(--ink);
+  background: radial-gradient(1200px 800px at 20% 10%, #fff, transparent 55%),
+              radial-gradient(900px 700px at 85% 10%, rgba(255,77,141,.18), transparent 55%),
+              linear-gradient(180deg, var(--bg0), var(--bg1));
+  overflow-x:hidden;
 }
 
 a{color:inherit; text-decoration:none}
 img{max-width:100%; display:block}
 
 .container{width:min(1100px, 92%); margin-inline:auto}
+
+/* Background orbs */
+.bg-orbs{position:fixed; inset:0; pointer-events:none; z-index:-1; overflow:hidden}
+.orb{position:absolute; width:48vmax; height:48vmax; border-radius:50%; filter: blur(30px); opacity:.35; mix-blend-mode:multiply}
+.o1{left:-10vmax; top:-14vmax; background: radial-gradient(circle at 30% 30%, rgba(217,179,94,.65), transparent 55%)}
+.o2{right:-18vmax; top:-10vmax; background: radial-gradient(circle at 35% 35%, rgba(255,77,141,.45), transparent 55%)}
+.o3{left:18vmax; bottom:-22vmax; background: radial-gradient(circle at 40% 40%, rgba(255,255,255,.7), transparent 60%)}
 
 /* Topbar */
 .topbar{
@@ -162,44 +74,12 @@ img{max-width:100%; display:block}
     linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.18));
   box-shadow: 0 18px 40px rgba(20,12,6,.14);
   transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
-  position: relative;
-  overflow: hidden;
 }
 .btn:hover{transform: translateY(-2px); box-shadow: 0 22px 55px rgba(20,12,6,.18)}
 .btn:active{transform: translateY(0)}
 .btn--ghost{
   background: rgba(255,255,255,.12);
   border:1px solid rgba(255,255,255,.35);
-}
-
-.btn--valentine {
-  background: linear-gradient(45deg, 
-    rgba(255, 77, 141, 0.8), 
-    rgba(255, 134, 182, 0.8)) !important;
-  border-color: rgba(255, 77, 141, 0.4) !important;
-  color: white !important;
-}
-
-/* Shimmer effect for buttons */
-.btn::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.3) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  transform: rotate(30deg);
-  transition: transform 0.6s;
-}
-
-.btn:hover::after {
-  transform: translateX(100%) rotate(30deg);
 }
 
 /* Hero */
@@ -218,15 +98,18 @@ img{max-width:100%; display:block}
   backdrop-filter: blur(18px);
   box-shadow: var(--shadow);
   overflow:hidden;
-  animation: glowPulse 9s ease-in-out infinite;
+}
+.glass-card::after{
+  content:"";
+  position:absolute; inset:-40% -20% auto -20%;
+  height:140%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.62), transparent 55%);
+  transform: rotate(12deg);
+  opacity:.35;
+  pointer-events:none;
 }
 
-@keyframes glowPulse{
-  0%,100%{box-shadow: 0 18px 60px rgba(9,9,9,.22), inset 0 1px 0 rgba(255,255,255,.25)}
-  50%{box-shadow: 0 22px 75px rgba(9,9,9,.26), inset 0 1px 0 rgba(255,255,255,.28)}
-}
-
-.hero-card{padding:18px; position:relative;}
+.hero-card{padding:18px}
 .hero-img{border-radius:18px; border:1px solid rgba(255,255,255,.22)}
 .hero-badges{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px}
 .pill{
@@ -240,36 +123,6 @@ img{max-width:100%; display:block}
 .pill--pink{
   background: linear-gradient(180deg, rgba(255,77,141,.26), rgba(255,77,141,.14));
   border-color: rgba(255,77,141,.25);
-  animation: pinkPulse 3s infinite;
-}
-
-@keyframes pinkPulse {
-  0%, 100% { 
-    background: linear-gradient(180deg, rgba(255,77,141,.26), rgba(255,77,141,.14));
-  }
-  50% { 
-    background: linear-gradient(180deg, rgba(255,77,141,.35), rgba(255,134,182,.2));
-  }
-}
-
-/* Valentine-specific sparkle effect */
-.valentine-sparkle {
-  position: relative;
-}
-
-.valentine-sparkle::after {
-  content: '✨';
-  position: absolute;
-  font-size: 12px;
-  animation: sparkleTwinkle 2s infinite;
-  opacity: 0;
-  top: -5px;
-  right: -5px;
-}
-
-@keyframes sparkleTwinkle {
-  0%, 100% { opacity: 0; transform: scale(0.8); }
-  50% { opacity: 1; transform: scale(1.2); }
 }
 
 /* Hero pre-order overlay */
@@ -306,48 +159,10 @@ img{max-width:100%; display:block}
 .fineprint{margin-top:12px; font-size:13px; color:rgba(110,90,65,.9)}
 
 /* Sections */
-.section{padding:54px 0; position: relative;}
-.section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(to bottom, 
-    transparent 0%,
-    rgba(255, 255, 255, 0.1) 50%,
-    transparent 100%);
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-.section:hover::before {
-  opacity: 1;
-}
-
+.section{padding:54px 0}
 .section__head{display:flex; align-items:flex-end; justify-content:space-between; gap:18px; margin-bottom:20px}
 .section__head h2{margin:8px 0 0; font-size: clamp(26px, 2.6vw, 34px)}
 .muted{color:rgba(110,90,65,.92)}
-
-/* Romantic text glow */
-.romantic-glow {
-  text-shadow: 0 0 10px rgba(255, 77, 141, 0.3),
-               0 0 20px rgba(255, 77, 141, 0.2),
-               0 0 30px rgba(255, 77, 141, 0.1);
-  animation: romanticPulse 4s ease-in-out infinite;
-}
-
-@keyframes romanticPulse {
-  0%, 100% { 
-    text-shadow: 0 0 10px rgba(255, 77, 141, 0.3),
-                 0 0 20px rgba(255, 77, 141, 0.2),
-                 0 0 30px rgba(255, 77, 141, 0.1);
-  }
-  50% { 
-    text-shadow: 0 0 15px rgba(255, 77, 141, 0.4),
-                 0 0 25px rgba(255, 134, 182, 0.3),
-                 0 0 35px rgba(255, 134, 182, 0.2);
-  }
-}
 
 /* Gallery */
 .gallery{display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:14px}
@@ -358,11 +173,9 @@ img{max-width:100%; display:block}
   background: rgba(255,255,255,.12);
   box-shadow: 0 18px 40px rgba(20,12,6,.10);
   transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
-  cursor: pointer;
 }
 .gcard:hover{transform: translateY(-3px); box-shadow: 0 22px 55px rgba(20,12,6,.14)}
-.gcard img{width:100%; height:100%; object-fit:cover; aspect-ratio: 1/1; transition: transform .6s ease}
-.gcard:hover img{transform: scale(1.05)}
+.gcard img{width:100%; height:100%; object-fit:cover; aspect-ratio: 1/1}
 
 /* Products */
 .products{display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:14px}
@@ -373,18 +186,17 @@ img{max-width:100%; display:block}
   backdrop-filter: blur(18px);
   box-shadow: 0 18px 45px rgba(20,12,6,.14);
   overflow:hidden;
-  transition: transform .4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow .4s ease;
+  transition: transform .18s ease, box-shadow .18s ease;
 }
-.product:hover{transform: translateY(-8px) scale(1.02); box-shadow: 0 30px 80px rgba(20,12,6,.22)}
-.product__media img{width:100%; height:240px; object-fit:cover; transition: transform .6s ease}
-.product:hover .product__media img{transform: scale(1.05)}
+.product:hover{transform: translateY(-3px); box-shadow: 0 24px 65px rgba(20,12,6,.18)}
+.product__media img{width:100%; height:240px; object-fit:cover}
 .product__body{padding:16px}
 .product__body h3{margin:0 0 6px; font-size:20px}
 .product__body p{margin:0 0 12px; color:rgba(42,30,18,.80); line-height:1.55}
 .product__meta{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:10px}
 .price{font-weight:900}
 .note{font-size:13px; color:rgba(110,90,65,.95)}
-.product__buy{min-height:52px; position:relative; z-index:2}
+.product__buy{min-height:52px}
 
 .divider{height:1px; margin:26px 0; background: linear-gradient(90deg, transparent, rgba(185,142,60,.55), transparent)}
 
@@ -400,32 +212,30 @@ img{max-width:100%; display:block}
 .faq-grid p{margin:0; color:rgba(42,30,18,.80); line-height:1.55}
 
 /* Footer */
-.footer{padding:26px 0 40px; position: relative;}
-.footer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(185,142,60,.3), transparent);
-}
-
+.footer{padding:26px 0 40px}
 .footer__inner{display:flex; justify-content:space-between; align-items:center; gap:10px}
 
+/* Reveal */
 /* Reveal animations */
-.reveal{opacity:0; transform: translateY(20px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1)}
-.reveal.is-visible{opacity:1; transform: translateY(0)}
+/* Default: visible (so the page never "disappears" if JS fails to run) */
+.reveal{opacity:1; transform:none; filter:none}
 
+/* When JS is running, we apply the animation states */
+html.js .reveal{
+  opacity:0;
+  transform: translateY(20px);
+  filter: blur(4px);
+  transition: opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1), filter .8s ease;
+  will-change: opacity, transform, filter;
+}
+html.js .reveal.is-visible{opacity:1; transform: translateY(0); filter:none}
 /* Lightbox */
-.lightbox{position:fixed; inset:0; z-index:2000; display:none; place-items:center; padding:18px; background: rgba(10,6,4,.85); backdrop-filter: blur(10px); opacity:0; transition: opacity .3s ease}
-.lightbox.open{display:grid; opacity:1}
-.lightbox__img{max-width:min(1000px, 92vw); max-height: 80vh; border-radius:18px; border:1px solid rgba(255,255,255,.25); box-shadow: 0 24px 80px rgba(0,0,0,.35); transform: scale(0.9); transition: transform .4s cubic-bezier(.2,.8,.2,1)}
-.lightbox.open .lightbox__img{transform: scale(1)}
-.lightbox__close{position:absolute; top:24px; right:24px; width:44px; height:44px; border-radius:14px; border:1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.12); color:#fff; font-size:26px; cursor:pointer; transition: transform .2s ease}
-.lightbox__close:hover{transform: rotate(90deg)}
+.lightbox{position:fixed; inset:0; z-index:2000; display:none; place-items:center; padding:18px; background: rgba(10,6,4,.65); backdrop-filter: blur(10px)}
+.lightbox.open{display:grid}
+.lightbox__img{max-width:min(1000px, 92vw); max-height: 80vh; border-radius:18px; border:1px solid rgba(255,255,255,.25); box-shadow: 0 24px 80px rgba(0,0,0,.35)}
+.lightbox__close{position:absolute; top:14px; right:14px; width:44px; height:44px; border-radius:14px; border:1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.12); color:#fff; font-size:26px; cursor:pointer}
 
-/* Enhanced Hearts Animation - LONGER DURATION */
+/* Hearts */
 .hearts{position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:1000}
 .heart{
   position:absolute;
@@ -433,290 +243,13 @@ img{max-width:100%; display:block}
   opacity:0;
   will-change: transform, opacity;
   filter: drop-shadow(0 10px 12px rgba(0,0,0,.14));
-  animation: fall 15s ease-in-out infinite; /* MUCH LONGER - 15 seconds */
-  font-size: var(--size);
-  color: var(--color);
+  animation: fall var(--dur) linear var(--delay) forwards;
 }
 .heart::before{content:"❤"; display:block; transform: translateZ(0)}
-
 @keyframes fall{
-  0%{
-    transform: translate3d(var(--x), -10vh, 0) 
-               rotate(0deg) 
-               scale(0.5);
-    opacity:0;
-  }
-  10%{
-    opacity:1;
-    transform: translate3d(calc(var(--x) + var(--drift1)), 15vh, 0) 
-               rotate(90deg) 
-               scale(0.8);
-  }
-  30%{
-    transform: translate3d(calc(var(--x) + var(--drift2)), 40vh, 0) 
-               rotate(180deg) 
-               scale(1);
-  }
-  50%{
-    transform: translate3d(calc(var(--x) + var(--drift3)), 65vh, 0) 
-               rotate(270deg) 
-               scale(0.9);
-    opacity:1;
-  }
-  80%{
-    transform: translate3d(calc(var(--x) + var(--drift4)), 90vh, 0) 
-               rotate(360deg) 
-               scale(0.7);
-    opacity:0.5;
-  }
-  100%{
-    transform: translate3d(calc(var(--x) + var(--drift5)), 120vh, 0) 
-               rotate(450deg) 
-               scale(0.5);
-    opacity:0;
-  }
-}
-
-/* Floating baklawa pieces animation - CONTINUOUS */
-.baklawa-particles {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-  background: 
-    radial-gradient(circle at 50% 50%, 
-      transparent 0%, 
-      transparent 30%,
-      rgba(217, 179, 94, 0.03) 40%,
-      rgba(217, 179, 94, 0.01) 50%,
-      transparent 60%
-    );
-  animation: particlePulse 20s ease-in-out infinite;
-}
-
-@keyframes particlePulse {
-  0%, 100% {
-    opacity: 0.3;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.5;
-    transform: scale(1.05);
-  }
-}
-
-/* Cupid arrow animation */
-.cupid-arrow {
-  position: fixed;
-  right: -100px;
-  top: 50%;
-  font-size: 40px;
-  z-index: 1000;
-  pointer-events: none;
-  animation: flyIn 15s infinite;
-}
-
-@keyframes flyIn {
-  0% { transform: translateX(0) translateY(-50%) rotate(45deg); right: -100px; }
-  10% { transform: translateX(-50vw) translateY(-50%) rotate(45deg); }
-  20%, 100% { transform: translateX(-100vw) translateY(-50%) rotate(45deg); }
-}
-
-/* Floating love letters animation */
-.love-letter {
-  position: absolute;
-  font-size: 20px;
-  opacity: 0.7;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-  animation: floatLoveLetter 20s linear infinite;
-}
-
-@keyframes floatLoveLetter {
-  0% { 
-    transform: translateY(100vh) rotate(0deg);
-    opacity: 0;
-  }
-  10% { 
-    opacity: 0.7;
-  }
-  90% { 
-    opacity: 0.7;
-  }
-  100% { 
-    transform: translateY(-100px) rotate(360deg);
-    opacity: 0;
-  }
-}
-
-/* Heartbeat animation */
-@keyframes heartbeat {
-  0% { transform: scale(1); }
-  5% { transform: scale(1.1); }
-  10% { transform: scale(1); }
-  15% { transform: scale(1.1); }
-  20% { transform: scale(1); }
-}
-
-.heartbeat {
-  animation: heartbeat 8s infinite;
-}
-
-/* Scroll progress indicator */
-.scroll-progress{
-  position:fixed;
-  top:0;
-  left:0;
-  height:3px;
-  background: linear-gradient(90deg, var(--pink), var(--gold));
-  z-index:1000;
-  width:0%;
-  transition:width 0.2s ease;
-}
-
-/* Hover glow effect for interactive elements */
-.hover-glow{
-  position:relative;
-  overflow:hidden;
-}
-.hover-glow::before{
-  content:'';
-  position:absolute;
-  inset:-2px;
-  background:linear-gradient(45deg, var(--pink), var(--gold), var(--pink2));
-  border-radius:inherit;
-  opacity:0;
-  transition:opacity 0.3s ease;
-  z-index:-1;
-}
-.hover-glow:hover::before{
-  opacity:0.3;
-}
-
-/* Shopify button customizations */
-.shopify-buy-frame--toggle{
-  background: linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.18)) !important;
-  border: 1px solid rgba(255,255,255,.35) !important;
-  backdrop-filter: blur(14px) !important;
-  border-radius: 14px !important;
-}
-
-.shopify-buy__btn{
-  background: linear-gradient(180deg, rgba(217,179,94,.9), rgba(185,142,60,.7)) !important;
-  border: 1px solid rgba(217,179,94,.4) !important;
-  color: var(--ink) !important;
-  font-weight: 700 !important;
-  border-radius: 14px !important;
-  transition: all 0.3s ease !important;
-  font-family: inherit !important;
-}
-
-.shopify-buy__btn:hover{
-  background: linear-gradient(180deg, rgba(255,77,141,.9), rgba(255,134,182,.7)) !important;
-  border-color: rgba(255,77,141,.4) !important;
-  transform: translateY(-2px) !important;
-}
-
-/* Navigation underline animation */
-.nav__link{
-  position: relative;
-  padding: 8px 0;
-}
-
-.nav__link::after{
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--pink), var(--gold));
-  transition: width 0.4s cubic-bezier(0.65, 0, 0.35, 1);
-  border-radius: 1px;
-}
-
-.nav__link:hover::after{
-  width: 100%;
-}
-
-/* Product badge animations */
-.product__meta .note{
-  position: relative;
-  padding: 4px 8px;
-  border-radius: 6px;
-  background: rgba(255,255,255,.1);
-  animation: badgePulse 3s infinite;
-}
-
-@keyframes badgePulse{
-  0%, 100%{ background: rgba(255,255,255,.1); }
-  50%{ background: rgba(255,77,141,.1); }
-}
-
-/* Continuous gradient border for hero card */
-.hero-card::before {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: 24px;
-  padding: 2px;
-  background: linear-gradient(
-    45deg,
-    var(--gold),
-    var(--pink),
-    var(--gold2),
-    var(--pink2),
-    var(--gold)
-  );
-  background-size: 300% 300%;
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) content-box, 
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: gradientBorder 8s linear infinite;
-  opacity: 0;
-  transition: opacity 0.6s ease;
-  z-index: -1;
-}
-
-.hero-card:hover::before {
-  opacity: 1;
-}
-
-@keyframes gradientBorder {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-/* Image loading animation */
-img[loading="lazy"] {
-  opacity: 0;
-  transition: opacity 0.8s ease;
-}
-
-img[loading="lazy"].loaded {
-  opacity: 1;
-}
-
-/* Smooth fade in for all content */
-body {
-  animation: pageFadeIn 1.2s ease-out;
-}
-
-@keyframes pageFadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  0%{transform: translate3d(var(--x), -10vh, 0) rotate(0deg) scale(var(--s)); opacity:0}
+  10%{opacity:1}
+  100%{transform: translate3d(calc(var(--x) + var(--drift)), 110vh, 0) rotate(var(--rot)) scale(var(--s)); opacity:0}
 }
 
 /* Responsive */
@@ -728,7 +261,6 @@ body {
   .mini-faq{grid-template-columns: 1fr;}
   .section__head{flex-direction:column; align-items:flex-start}
 }
-
 @media (max-width: 520px){
   .nav{display:none}
   .trust{grid-template-columns:1fr}
@@ -736,56 +268,87 @@ body {
   .brand__tag{display:none}
 }
 
-/* Accessibility - Reduced Motion */
 @media (prefers-reduced-motion: reduce){
-  body::before,
-  .background-overlay,
-  .baklawa-particles,
-  .heart,
-  .glass-card,
-  .cupid-arrow,
-  .love-letter,
-  .heartbeat,
-  .romantic-glow,
-  .pill--pink {
-    animation: none !important;
-  }
-  
-  .reveal{
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-}
-/* =========================
-   FIX: Page starts "down below"
-   ========================= */
-
-/* 1) Remove any accidental top gap on the first section/hero */
-body { margin: 0; padding: 0; }
-
-/* If your hero is the first element, reduce top padding so it doesn't look pushed down */
-.hero { padding-top: 18px; } /* was 46px */
-
-/* 2) Sticky header sometimes creates a perceived "gap". This makes anchors/scroll align correctly */
-:root { scroll-padding-top: 80px; } /* adjust to your topbar height */
-
-/* 3) Ensure fixed overlays NEVER affect layout or intercept scroll */
-.hearts,
-.cupid-arrow,
-.background-overlay,
-.baklawa-particles,
-.scroll-progress,
-body::before {
-  top: 0;
-  left: 0;
+  .reveal{opacity:1; transform:none; filter:none}
+  .heart{display:none}
+  *{scroll-behavior:auto !important}
 }
 
-/* 4) Your hearts overlay has z-index 1000 (above everything) — keep it behind UI */
-.hearts { z-index: 5; }          /* was 1000 */
-.topbar { z-index: 50; }         /* stays above hearts */
-.lightbox { z-index: 2000; }     /* stays above everything */
+/* Extra Valentine polish */
+.hero-card{
+  position:relative;
+  transform-style:preserve-3d;
+}
+.hero-card::after{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius: inherit;
+  pointer-events:none;
+  background: linear-gradient(120deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,.18) 30%,
+    rgba(255,255,255,0) 60%);
+  background-size: 200% 200%;
+  mix-blend-mode: screen;
+  opacity:.55;
+  filter: blur(0.2px);
+  animation: sheen 10s ease-in-out infinite;
+}
 
-/* 5) Make sure no container is being pushed by unexpected default margins */
-.container { margin-top: 0; }
-.section:first-of-type { padding-top: 36px; } /* keeps breathing room without huge gap */
+@keyframes sheen{
+  0%{background-position: 0% 40%; opacity:.32}
+  50%{background-position: 100% 60%; opacity:.62}
+  100%{background-position: 0% 40%; opacity:.32}
+}
+
+.hero-img{
+  transform: translateZ(18px);
+  animation: floatY 7s ease-in-out infinite;
+}
+
+@keyframes floatY{
+  0%,100%{transform: translateZ(18px) translateY(0)}
+  50%{transform: translateZ(18px) translateY(-8px)}
+}
+
+/* subtle glow breathing */
+.glass-card{
+  animation: glowPulse 9s ease-in-out infinite;
+}
+@keyframes glowPulse{
+  0%,100%{box-shadow: 0 18px 60px rgba(9,9,9,.22), inset 0 1px 0 rgba(255,255,255,.25)}
+  50%{box-shadow: 0 22px 75px rgba(9,9,9,.26), inset 0 1px 0 rgba(255,255,255,.28)}
+}
+
+/* button shimmer on hover */
+.btn{position:relative; overflow:hidden}
+.btn::after{
+  content:"";
+  position:absolute;
+  top:-40%; left:-60%;
+  width: 60%; height: 180%;
+  transform: rotate(20deg);
+  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.35), rgba(255,255,255,0));
+  opacity:0;
+}
+.btn:hover::after{
+  opacity:1;
+  animation: sweep 900ms ease-out;
+}
+@keyframes sweep{
+  0%{transform: translateX(0) rotate(20deg)}
+  100%{transform: translateX(320%) rotate(20deg)}
+}
+
+/* slightly stronger hover lift */
+.product:hover{transform: translateY(-10px) scale(1.01)}
+.gcard:hover{transform: translateY(-9px) scale(1.02)}
+
+/* Disable extra motion if requested */
+@media (prefers-reduced-motion: reduce){
+  .hero-img{animation:none; transform:none}
+  .hero-card::after{animation:none; opacity:.2}
+  .glass-card{animation:none}
+  .btn:hover::after{animation:none}
+}
