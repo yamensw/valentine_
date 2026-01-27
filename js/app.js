@@ -1,4 +1,3 @@
-document.documentElement.classList.add("js");
 /* Baklawa Bites — Valentine Special */
 
 function initYear(){
@@ -7,6 +6,9 @@ function initYear(){
 }
 
 function initReveal(){
+  // Add js class to html for CSS targeting
+  document.documentElement.classList.add('js');
+  
   const items = document.querySelectorAll('.reveal');
   if (!('IntersectionObserver' in window)){
     items.forEach(el => el.classList.add('is-visible'));
@@ -139,6 +141,13 @@ function initTilt(){
   el.addEventListener('mouseenter', onEnter);
   el.addEventListener('mousemove', onMove);
   el.addEventListener('mouseleave', onLeave);
+}
+
+/* Create continuous background overlay */
+function initContinuousBackground() {
+  const overlay = document.createElement('div');
+  overlay.className = 'background-overlay';
+  document.body.appendChild(overlay);
 }
 
 /* Shopify Buy Button (shared cart) */
@@ -290,10 +299,11 @@ function initShopify(){
 
 document.addEventListener('DOMContentLoaded', () => {
   initYear();
+  initContinuousBackground(); // Add this line
   initReveal();
   initLightbox();
   initHearts();
-	initTilt();
+  initTilt();
 
   loadShopifyBuy(() => {
     try { initShopify(); } catch (e) { console.warn('Shopify init failed:', e); }
