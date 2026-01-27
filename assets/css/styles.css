@@ -19,10 +19,97 @@ body{
   margin:0;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
   color:var(--ink);
-  background: radial-gradient(1200px 800px at 20% 10%, #fff, transparent 55%),
-              radial-gradient(900px 700px at 85% 10%, rgba(255,77,141,.18), transparent 55%),
-              linear-gradient(180deg, var(--bg0), var(--bg1));
   overflow-x:hidden;
+  position: relative;
+}
+
+/* CONTINUOUS SEAMLESS BACKGROUND - ONE UNIFIED GRADIENT */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  
+  /* Single continuous animated gradient */
+  background: 
+    /* Base warm cream gradient covering entire area */
+    linear-gradient(
+      135deg,
+      var(--bg0) 0%,
+      var(--bg1) 100%
+    ),
+    
+    /* Golden glow overlay - positioned strategically */
+    radial-gradient(
+      circle at 20% 10%,
+      rgba(217, 179, 94, 0.15) 0%,
+      rgba(217, 179, 94, 0.05) 30%,
+      transparent 70%
+    ),
+    
+    /* Pink glow overlay - positioned strategically */
+    radial-gradient(
+      circle at 85% 10%,
+      rgba(255, 77, 141, 0.12) 0%,
+      rgba(255, 134, 182, 0.05) 30%,
+      transparent 70%
+    ),
+    
+    /* Center glow for depth */
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(255, 255, 255, 0.2) 0%,
+      transparent 60%
+    );
+  
+  /* Smooth animation for the gradient */
+  animation: gradientShift 20s ease-in-out infinite alternate;
+}
+
+/* Subtle gradient animation */
+@keyframes gradientShift {
+  0% {
+    background-size: 100% 100%, 1000px 800px, 900px 700px, 1200px 1200px;
+    background-position: 0% 0%, 20% 10%, 85% 10%, 50% 50%;
+  }
+  100% {
+    background-size: 100% 100%, 1100px 850px, 950px 750px, 1300px 1300px;
+    background-position: 0% 0%, 22% 12%, 83% 12%, 52% 52%;
+  }
+}
+
+/* Particle overlay for continuous texture */
+.background-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: 
+    radial-gradient(circle at 30% 40%, 
+      rgba(255, 255, 255, 0.15) 0%, 
+      transparent 50%
+    ),
+    radial-gradient(circle at 70% 60%, 
+      rgba(217, 179, 94, 0.1) 0%, 
+      transparent 50%
+    ),
+    radial-gradient(circle at 40% 80%, 
+      rgba(255, 77, 141, 0.08) 0%, 
+      transparent 50%
+    );
+  mix-blend-mode: overlay;
+  opacity: 0.4;
+  animation: overlayFloat 25s ease-in-out infinite alternate;
+}
+
+@keyframes overlayFloat {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-20px, -10px);
+  }
 }
 
 a{color:inherit; text-decoration:none}
@@ -30,12 +117,8 @@ img{max-width:100%; display:block}
 
 .container{width:min(1100px, 92%); margin-inline:auto}
 
-/* Background orbs */
-.bg-orbs{position:fixed; inset:0; pointer-events:none; z-index:-1; overflow:hidden}
-.orb{position:absolute; width:48vmax; height:48vmax; border-radius:50%; filter: blur(30px); opacity:.35; mix-blend-mode:multiply}
-.o1{left:-10vmax; top:-14vmax; background: radial-gradient(circle at 30% 30%, rgba(217,179,94,.65), transparent 55%)}
-.o2{right:-18vmax; top:-10vmax; background: radial-gradient(circle at 35% 35%, rgba(255,77,141,.45), transparent 55%)}
-.o3{left:18vmax; bottom:-22vmax; background: radial-gradient(circle at 40% 40%, rgba(255,255,255,.7), transparent 60%)}
+/* Background orbs (removed segmented ones, now part of continuous background) */
+/* The background is now handled by the body::before pseudo-element */
 
 /* Topbar */
 .topbar{
@@ -215,7 +298,6 @@ img{max-width:100%; display:block}
 .footer{padding:26px 0 40px}
 .footer__inner{display:flex; justify-content:space-between; align-items:center; gap:10px}
 
-/* Reveal */
 /* Reveal animations */
 /* Default: visible (so the page never "disappears" if JS fails to run) */
 .reveal{opacity:1; transform:none; filter:none}
@@ -229,6 +311,7 @@ html.js .reveal{
   will-change: opacity, transform, filter;
 }
 html.js .reveal.is-visible{opacity:1; transform: translateY(0); filter:none}
+
 /* Lightbox */
 .lightbox{position:fixed; inset:0; z-index:2000; display:none; place-items:center; padding:18px; background: rgba(10,6,4,.65); backdrop-filter: blur(10px)}
 .lightbox.open{display:grid}
@@ -272,6 +355,9 @@ html.js .reveal.is-visible{opacity:1; transform: translateY(0); filter:none}
   .reveal{opacity:1; transform:none; filter:none}
   .heart{display:none}
   *{scroll-behavior:auto !important}
+  body::before, .background-overlay {
+    animation: none !important;
+  }
 }
 
 /* Extra Valentine polish */
