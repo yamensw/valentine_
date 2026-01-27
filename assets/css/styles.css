@@ -1,0 +1,344 @@
+:root{
+  --bg0:#FBF6EE;
+  --bg1:#F4E7D3;
+  --ink:#2A1E12;
+  --muted:#6E5A41;
+  --gold:#D9B35E;
+  --gold2:#B98E3C;
+  --glass:rgba(255,255,255,.14);
+  --glass2:rgba(255,255,255,.08);
+  --stroke:rgba(255,255,255,.28);
+  --shadow:0 18px 50px rgba(20,12,6,.18);
+  --pink:#FF4D8D;
+  --pink2:#FF86B6;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  color:var(--ink);
+  background: radial-gradient(1200px 800px at 20% 10%, #fff, transparent 55%),
+              radial-gradient(900px 700px at 85% 10%, rgba(255,77,141,.18), transparent 55%),
+              linear-gradient(180deg, var(--bg0), var(--bg1));
+  overflow-x:hidden;
+}
+
+a{color:inherit; text-decoration:none}
+img{max-width:100%; display:block}
+
+.container{width:min(1100px, 92%); margin-inline:auto}
+
+/* Background orbs */
+.bg-orbs{position:fixed; inset:0; pointer-events:none; z-index:-1; overflow:hidden}
+.orb{position:absolute; width:48vmax; height:48vmax; border-radius:50%; filter: blur(30px); opacity:.35; mix-blend-mode:multiply}
+.o1{left:-10vmax; top:-14vmax; background: radial-gradient(circle at 30% 30%, rgba(217,179,94,.65), transparent 55%)}
+.o2{right:-18vmax; top:-10vmax; background: radial-gradient(circle at 35% 35%, rgba(255,77,141,.45), transparent 55%)}
+.o3{left:18vmax; bottom:-22vmax; background: radial-gradient(circle at 40% 40%, rgba(255,255,255,.7), transparent 60%)}
+
+/* Topbar */
+.topbar{
+  position:sticky; top:0; z-index:50;
+  backdrop-filter: blur(16px);
+  background: linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,.18));
+  border-bottom:1px solid rgba(255,255,255,.35);
+}
+.topbar__inner{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 0}
+.brand{display:flex; align-items:center; gap:10px}
+.brand__mark{width:34px; height:34px}
+.brand__name{font-weight:700; letter-spacing:.2px}
+.brand__tag{
+  margin-left:8px;
+  font-size:12px;
+  padding:6px 10px;
+  border-radius:999px;
+  color:rgba(42,30,18,.9);
+  background: linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.18));
+  border:1px solid rgba(255,255,255,.35);
+  box-shadow: 0 10px 25px rgba(255,77,141,.12);
+}
+.nav{display:flex; gap:18px; align-items:center}
+.nav__link{font-weight:600; color:rgba(42,30,18,.86)}
+.nav__link:hover{color:rgba(42,30,18,1)}
+
+/* Buttons */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:12px 16px;
+  border-radius:14px;
+  font-weight:700;
+  letter-spacing:.2px;
+  border:1px solid rgba(255,255,255,.35);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.18));
+  box-shadow: 0 18px 40px rgba(20,12,6,.14);
+  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+}
+.btn:hover{transform: translateY(-2px); box-shadow: 0 22px 55px rgba(20,12,6,.18)}
+.btn:active{transform: translateY(0)}
+.btn--ghost{
+  background: rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.35);
+}
+
+/* Hero */
+.hero{padding:46px 0 30px}
+.hero__grid{display:grid; gap:30px; grid-template-columns: 1.05fr .95fr; align-items:center}
+.hero__copy h1{font-size: clamp(34px, 4vw, 50px); line-height:1.05; margin:10px 0 12px}
+.eyebrow{display:inline-block; font-weight:800; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:rgba(110,90,65,.9)}
+.subhead{font-size:18px; line-height:1.55; color:rgba(42,30,18,.82); max-width:56ch}
+.hero__actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
+
+.glass-card{
+  position:relative;
+  background: linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.08));
+  border: 1px solid rgba(255,255,255,.32);
+  border-radius: 22px;
+  backdrop-filter: blur(18px);
+  box-shadow: var(--shadow);
+  overflow:hidden;
+}
+.glass-card::after{
+  content:"";
+  position:absolute; inset:-40% -20% auto -20%;
+  height:140%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.62), transparent 55%);
+  transform: rotate(12deg);
+  opacity:.35;
+  pointer-events:none;
+}
+
+.hero-card{padding:18px}
+.hero-img{border-radius:18px; border:1px solid rgba(255,255,255,.22)}
+.hero-badges{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px}
+.pill{
+  font-weight:800; font-size:12px;
+  padding:8px 10px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.34);
+  background: rgba(255,255,255,.16);
+}
+.pill--soft{opacity:.9}
+.pill--pink{
+  background: linear-gradient(180deg, rgba(255,77,141,.26), rgba(255,77,141,.14));
+  border-color: rgba(255,77,141,.25);
+}
+
+/* Hero pre-order overlay */
+.hero-preorder{
+  position:absolute;
+  left:50%;
+  bottom:16px;
+  transform: translateX(-50%);
+  z-index: 4;
+  width: min(320px, 82%);
+  text-align:center;
+  padding:10px 12px;
+  border-radius:18px;
+  background: rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.26);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 16px 38px rgba(20,12,6,.14);
+}
+.hero-preorder__label{
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: 11px;
+  color: rgba(110,90,65,.95);
+  margin-bottom: 8px;
+}
+.hero-preorder__btn{display:flex; justify-content:center}
+
+.trust{display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:10px; margin-top:18px}
+.trust__item{padding:12px 12px; border-radius:16px; background: rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.28)}
+.trust__title{font-weight:900}
+.trust__desc{display:block; color:rgba(110,90,65,.95); margin-top:2px; font-size:13px}
+.fineprint{margin-top:12px; font-size:13px; color:rgba(110,90,65,.9)}
+
+/* Sections */
+.section{padding:54px 0}
+.section__head{display:flex; align-items:flex-end; justify-content:space-between; gap:18px; margin-bottom:20px}
+.section__head h2{margin:8px 0 0; font-size: clamp(26px, 2.6vw, 34px)}
+.muted{color:rgba(110,90,65,.92)}
+
+/* Gallery */
+.gallery{display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:14px}
+.gcard{
+  border-radius:18px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.28);
+  background: rgba(255,255,255,.12);
+  box-shadow: 0 18px 40px rgba(20,12,6,.10);
+  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+}
+.gcard:hover{transform: translateY(-3px); box-shadow: 0 22px 55px rgba(20,12,6,.14)}
+.gcard img{width:100%; height:100%; object-fit:cover; aspect-ratio: 1/1}
+
+/* Products */
+.products{display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:14px}
+.product{
+  border-radius:22px;
+  background: linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.08));
+  border:1px solid rgba(255,255,255,.30);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 18px 45px rgba(20,12,6,.14);
+  overflow:hidden;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.product:hover{transform: translateY(-3px); box-shadow: 0 24px 65px rgba(20,12,6,.18)}
+.product__media img{width:100%; height:240px; object-fit:cover}
+.product__body{padding:16px}
+.product__body h3{margin:0 0 6px; font-size:20px}
+.product__body p{margin:0 0 12px; color:rgba(42,30,18,.80); line-height:1.55}
+.product__meta{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:10px}
+.price{font-weight:900}
+.note{font-size:13px; color:rgba(110,90,65,.95)}
+.product__buy{min-height:52px}
+
+.divider{height:1px; margin:26px 0; background: linear-gradient(90deg, transparent, rgba(185,142,60,.55), transparent)}
+
+.mini-faq{display:grid; grid-template-columns: .6fr 1.4fr; gap:16px; align-items:start}
+.qa details{padding:14px 14px; border-radius:16px; background: rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.26); margin-bottom:10px}
+.qa summary{cursor:pointer; font-weight:800}
+.qa p{margin:10px 0 0; color:rgba(42,30,18,.80); line-height:1.55}
+
+/* FAQ cards */
+.faq-grid{display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:14px}
+.faq-grid .glass-card{padding:16px}
+.faq-grid h3{margin:0 0 6px}
+.faq-grid p{margin:0; color:rgba(42,30,18,.80); line-height:1.55}
+
+/* Footer */
+.footer{padding:26px 0 40px}
+.footer__inner{display:flex; justify-content:space-between; align-items:center; gap:10px}
+
+/* Reveal */
+.reveal{opacity:0; transform: translateY(14px); filter: blur(6px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1), filter .8s ease}
+.reveal.is-visible{opacity:1; transform:none; filter: blur(0)}
+
+/* Lightbox */
+.lightbox{position:fixed; inset:0; z-index:2000; display:none; place-items:center; padding:18px; background: rgba(10,6,4,.65); backdrop-filter: blur(10px)}
+.lightbox.open{display:grid}
+.lightbox__img{max-width:min(1000px, 92vw); max-height: 80vh; border-radius:18px; border:1px solid rgba(255,255,255,.25); box-shadow: 0 24px 80px rgba(0,0,0,.35)}
+.lightbox__close{position:absolute; top:14px; right:14px; width:44px; height:44px; border-radius:14px; border:1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.12); color:#fff; font-size:26px; cursor:pointer}
+
+/* Hearts */
+.hearts{position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:1000}
+.heart{
+  position:absolute;
+  top:-10vh;
+  opacity:0;
+  will-change: transform, opacity;
+  filter: drop-shadow(0 10px 12px rgba(0,0,0,.14));
+  animation: fall var(--dur) linear var(--delay) forwards;
+}
+.heart::before{content:"❤"; display:block; transform: translateZ(0)}
+@keyframes fall{
+  0%{transform: translate3d(var(--x), -10vh, 0) rotate(0deg) scale(var(--s)); opacity:0}
+  10%{opacity:1}
+  100%{transform: translate3d(calc(var(--x) + var(--drift)), 110vh, 0) rotate(var(--rot)) scale(var(--s)); opacity:0}
+}
+
+/* Responsive */
+@media (max-width: 980px){
+  .hero__grid{grid-template-columns: 1fr;}
+  .products{grid-template-columns: 1fr;}
+  .gallery{grid-template-columns: repeat(2, minmax(0,1fr));}
+  .faq-grid{grid-template-columns: 1fr;}
+  .mini-faq{grid-template-columns: 1fr;}
+  .section__head{flex-direction:column; align-items:flex-start}
+}
+@media (max-width: 520px){
+  .nav{display:none}
+  .trust{grid-template-columns:1fr}
+  .gallery{grid-template-columns: 1fr}
+  .brand__tag{display:none}
+}
+
+@media (prefers-reduced-motion: reduce){
+  .reveal{opacity:1; transform:none; filter:none}
+  .heart{display:none}
+  *{scroll-behavior:auto !important}
+}
+
+/* Extra Valentine polish */
+.hero-card{
+  position:relative;
+  transform-style:preserve-3d;
+}
+.hero-card::after{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius: inherit;
+  pointer-events:none;
+  background: linear-gradient(120deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,.18) 30%,
+    rgba(255,255,255,0) 60%);
+  background-size: 200% 200%;
+  mix-blend-mode: screen;
+  opacity:.55;
+  filter: blur(0.2px);
+  animation: sheen 10s ease-in-out infinite;
+}
+
+@keyframes sheen{
+  0%{background-position: 0% 40%; opacity:.32}
+  50%{background-position: 100% 60%; opacity:.62}
+  100%{background-position: 0% 40%; opacity:.32}
+}
+
+.hero-img{
+  transform: translateZ(18px);
+  animation: floatY 7s ease-in-out infinite;
+}
+
+@keyframes floatY{
+  0%,100%{transform: translateZ(18px) translateY(0)}
+  50%{transform: translateZ(18px) translateY(-8px)}
+}
+
+/* subtle glow breathing */
+.glass-card{
+  animation: glowPulse 9s ease-in-out infinite;
+}
+@keyframes glowPulse{
+  0%,100%{box-shadow: 0 18px 60px rgba(9,9,9,.22), inset 0 1px 0 rgba(255,255,255,.25)}
+  50%{box-shadow: 0 22px 75px rgba(9,9,9,.26), inset 0 1px 0 rgba(255,255,255,.28)}
+}
+
+/* button shimmer on hover */
+.btn{position:relative; overflow:hidden}
+.btn::after{
+  content:"";
+  position:absolute;
+  top:-40%; left:-60%;
+  width: 60%; height: 180%;
+  transform: rotate(20deg);
+  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.35), rgba(255,255,255,0));
+  opacity:0;
+}
+.btn:hover::after{
+  opacity:1;
+  animation: sweep 900ms ease-out;
+}
+@keyframes sweep{
+  0%{transform: translateX(0) rotate(20deg)}
+  100%{transform: translateX(320%) rotate(20deg)}
+}
+
+/* slightly stronger hover lift */
+.product:hover{transform: translateY(-10px) scale(1.01)}
+.gcard:hover{transform: translateY(-9px) scale(1.02)}
+
+/* Disable extra motion if requested */
+@media (prefers-reduced-motion: reduce){
+  .hero-img{animation:none; transform:none}
+  .hero-card::after{animation:none; opacity:.2}
+  .glass-card{animation:none}
+  .btn:hover::after{animation:none}
+}
