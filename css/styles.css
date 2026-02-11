@@ -438,3 +438,235 @@ html.js .reveal.is-visible{opacity:1; transform: translateY(0); filter:none}
   .glass-card{animation:none}
   .btn:hover::after{animation:none}
 }
+/* ============ RAMADAN NIGHT SKY THEME ============ */
+/* Add this entire block to your existing styles.css */
+
+/* Night sky background - deep blue/purple gradient */
+.ramadan-theme body::before,
+body.ramadan-theme::before {
+  background: 
+    linear-gradient(
+      145deg,
+      #0a0c1a 0%,
+      #14182c 30%,
+      #1a1e32 60%,
+      #0e1222 100%
+    ) !important;
+  animation: nightGlow 20s ease-in-out infinite alternate !important;
+}
+
+@keyframes nightGlow {
+  0% { opacity: 0.9; }
+  100% { opacity: 1; }
+}
+
+/* Crescent moon - fixed top right corner */
+.ramadan-crescent {
+  position: fixed;
+  top: 30px;
+  right: 40px;
+  width: 80px;
+  height: 80px;
+  z-index: 9999;
+  pointer-events: none;
+  animation: moonFloat 8s ease-in-out infinite;
+}
+
+.moon {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  background: radial-gradient(circle at 30% 30%, 
+    #fffde7, 
+    #fff3c9);
+  border-radius: 50%;
+  box-shadow: 
+    0 0 30px rgba(255, 255, 200, 0.6),
+    0 0 60px rgba(255, 235, 150, 0.3),
+    0 0 100px rgba(255, 215, 0, 0.2);
+}
+
+.crescent-overlay {
+  position: absolute;
+  top: -8px;
+  left: 18px;
+  width: 58px;
+  height: 58px;
+  background: #0a0c1a;
+  border-radius: 50%;
+  box-shadow: inset -2px -2px 10px rgba(0,0,0,0.5);
+}
+
+/* Star container */
+.ramadan-stars {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  overflow: hidden;
+}
+
+/* Individual star */
+.ramadan-star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0;
+  box-shadow: 
+    0 0 6px rgba(255, 255, 200, 0.9),
+    0 0 12px rgba(255, 235, 150, 0.5);
+  animation: twinkle var(--twinkle-duration) ease-in-out infinite;
+}
+
+/* Shooting star */
+.ramadan-shooting-star {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  filter: blur(0.5px);
+  opacity: 0;
+  animation: shoot var(--shoot-duration) linear infinite;
+}
+
+.ramadan-shooting-star::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 200, 0.9), 
+    rgba(255, 255, 200, 0.2), 
+    transparent);
+  transform: translateY(-50%) rotate(45deg);
+  transform-origin: left;
+  border-radius: 2px;
+  filter: blur(3px);
+}
+
+/* Animations */
+@keyframes moonFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-8px) scale(1.02); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0; transform: scale(0.8); }
+  25% { opacity: var(--twinkle-opacity); transform: scale(1); }
+  50% { opacity: var(--twinkle-brightness); transform: scale(1.3); }
+  75% { opacity: var(--twinkle-opacity); transform: scale(1); }
+}
+
+@keyframes shoot {
+  0% {
+    transform: translateX(0) translateY(0) rotate(45deg);
+    opacity: 0;
+  }
+  5% { opacity: 1; }
+  20% {
+    transform: translateX(-300px) translateY(300px) rotate(45deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(-600px) translateY(600px) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+/* Adjust text colors for dark background */
+.ramadan-theme,
+.ramadan-theme body {
+  color: #fef9e7 !important;
+}
+
+.ramadan-theme h1,
+.ramadan-theme h2,
+.ramadan-theme h3,
+.ramadan-theme .brand__name,
+.ramadan-theme .nav__link {
+  color: #fef9e7 !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.7) !important;
+}
+
+.ramadan-theme .subhead,
+.ramadan-theme .muted,
+.ramadan-theme .eyebrow,
+.ramadan-theme .fineprint {
+  color: #f0e6d2 !important;
+}
+
+/* Glassmorphism adjustments for dark mode */
+.ramadan-theme .glass-card,
+.ramadan-theme .product,
+.ramadan-theme .trust__item,
+.ramadan-theme .gcard {
+  background: rgba(8, 6, 16, 0.5) !important;
+  backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 235, 150, 0.25) !important;
+}
+
+.ramadan-theme .btn {
+  background: linear-gradient(180deg, 
+    rgba(40, 30, 60, 0.8), 
+    rgba(20, 15, 40, 0.9)) !important;
+  border: 1px solid rgba(255, 215, 0, 0.3) !important;
+  color: #fef9e7 !important;
+}
+
+.ramadan-theme .btn:hover {
+  background: linear-gradient(180deg, 
+    rgba(70, 50, 90, 0.9), 
+    rgba(40, 25, 60, 0.95)) !important;
+  border-color: rgba(255, 215, 0, 0.6) !important;
+}
+
+/* Shopify buy button override */
+.ramadan-theme .shopify-buy__btn {
+  background: linear-gradient(180deg, 
+    rgba(218, 165, 32, 0.95), 
+    rgba(184, 134, 11, 0.95)) !important;
+  border: 1px solid rgba(255, 215, 0, 0.6) !important;
+  color: #0a0c1a !important;
+  font-weight: 800 !important;
+}
+
+/* Footer text */
+.ramadan-theme .footer,
+.ramadan-theme .footer__inner {
+  color: #e6d8b5 !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ramadan-crescent {
+    top: 15px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+  }
+  .moon {
+    width: 52px;
+    height: 52px;
+  }
+  .crescent-overlay {
+    width: 43px;
+    height: 43px;
+    top: -6px;
+    left: 14px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .ramadan-crescent,
+  .ramadan-star,
+  .ramadan-shooting-star {
+    animation: none !important;
+  }
+  .ramadan-crescent {
+    transform: none !important;
+  }
+}
