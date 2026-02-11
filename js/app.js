@@ -309,3 +309,115 @@ document.addEventListener('DOMContentLoaded', () => {
     try { initShopify(); } catch (e) { console.warn('Shopify init failed:', e); }
   });
 });
+/* ============ RAMADAN NIGHT SKY THEME ============ */
+/* Add this entire block to your existing app.js */
+
+function initRamadanTheme() {
+  // Add theme class to body
+  document.body.classList.add('ramadan-theme');
+  
+  // --- CREATE CRESCENT MOON ---
+  if (!document.querySelector('.ramadan-crescent')) {
+    const moonContainer = document.createElement('div');
+    moonContainer.className = 'ramadan-crescent';
+    moonContainer.innerHTML = `
+      <div class="moon">
+        <div class="crescent-overlay"></div>
+      </div>
+    `;
+    document.body.appendChild(moonContainer);
+  }
+  
+  // --- CREATE STARS CONTAINER ---
+  let starsContainer = document.querySelector('.ramadan-stars');
+  if (!starsContainer) {
+    starsContainer = document.createElement('div');
+    starsContainer.className = 'ramadan-stars';
+    document.body.appendChild(starsContainer);
+  }
+  
+  // Clear existing stars (if any)
+  starsContainer.innerHTML = '';
+  
+  // --- GENERATE STARS ---
+  const starCount = 250; // Number of stars
+  
+  for (let i = 0; i < starCount; i++) {
+    const star = document.createElement('div');
+    star.className = 'ramadan-star';
+    
+    // Random position (vw/vh)
+    const left = Math.random() * 100;
+    const top = Math.random() * 100;
+    
+    // Random size (1-4px, occasional larger)
+    const size = Math.random() < 0.85 
+      ? Math.random() * 2 + 1    // 1-3px
+      : Math.random() * 3 + 3;   // 3-6px
+    
+    // Twinkle speed (2-6s)
+    const duration = Math.random() * 4 + 2;
+    // Random delay
+    const delay = Math.random() * 5;
+    // Random opacity values
+    const opacity = Math.random() * 0.6 + 0.4;
+    const brightness = Math.random() * 0.5 + 0.5;
+    
+    star.style.setProperty('--twinkle-duration', `${duration}s`);
+    star.style.setProperty('--twinkle-opacity', opacity);
+    star.style.setProperty('--twinkle-brightness', brightness);
+    star.style.left = `${left}vw`;
+    star.style.top = `${top}vh`;
+    star.style.width = `${size}px`;
+    star.style.height = `${size}px`;
+    star.style.animationDelay = `${delay}s`;
+    
+    starsContainer.appendChild(star);
+  }
+  
+  // --- GENERATE SHOOTING STARS ---
+  const shootingStarCount = 8;
+  
+  for (let i = 0; i < shootingStarCount; i++) {
+    const shootingStar = document.createElement('div');
+    shootingStar.className = 'ramadan-shooting-star';
+    
+    const left = Math.random() * 60 + 40; // 40-100vw
+    const top = Math.random() * 30;        // 0-30vh
+    const delay = Math.random() * 15 + (i * 2);
+    const duration = Math.random() * 3 + 4; // 4-7s
+    
+    shootingStar.style.setProperty('--shoot-duration', `${duration}s`);
+    shootingStar.style.left = `${left}vw`;
+    shootingStar.style.top = `${top}vh`;
+    shootingStar.style.animationDelay = `${delay}s`;
+    
+    starsContainer.appendChild(shootingStar);
+  }
+}
+
+// Auto-initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+  // You can uncomment the line below to enable Ramadan theme automatically
+  initRamadanTheme();
+  
+  // To enable based on date, replace with:
+  // const today = new Date();
+  // const ramadan2024Start = new Date('2024-03-10');
+  // const ramadan2024End = new Date('2024-04-09');
+  // if (today >= ramadan2024Start && today <= ramadan2024End) {
+  //   initRamadanTheme();
+  // }
+});
+
+/* ========== OPTIONAL: MANUAL TOGGLE FUNCTION ========== */
+// Call this from browser console to enable/disable:
+//   enableRamadanTheme()   - turns on
+//   disableRamadanTheme()  - turns off
+window.enableRamadanTheme = initRamadanTheme;
+
+window.disableRamadanTheme = function() {
+  document.body.classList.remove('ramadan-theme');
+  const elements = document.querySelectorAll('.ramadan-crescent, .ramadan-stars');
+  elements.forEach(el => el.remove());
+};
